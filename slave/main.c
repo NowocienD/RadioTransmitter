@@ -47,10 +47,7 @@ int main(void)
 	PORTD = 0xFF;
 	
 	Switch1_disble_PullUP;
-	Switch2_disble_PullUP;
-	Switch1_enable_PullUP;
-	Switch2_enable_PullUP;
-	
+	Switch2_disble_PullUP;	
 
 	while (1)
 	{
