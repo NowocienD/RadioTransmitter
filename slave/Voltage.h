@@ -3,9 +3,9 @@
 
 #include <avr/io.h>
 
-uint8_t VoltageMeasure_Get();
-void VoltageMeasure_Start();
-void VoltageMeasure_Init();
-void VoltageMeasure_Stop();
+extern uint8_t VoltageMeasure_Get();
+extern void VoltageMeasure_Start();
+extern void VoltageMeasure_Init();
+extern void VoltageMeasure_Stop();
 
 #endif /* VOLTAGE_H_ */
