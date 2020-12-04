@@ -1,6 +1,6 @@
 #include "Voltage.h"
-
-// works only on port C !!!
+#include "UART.h"
+#include "Config.h"
 
 
 // presklaer ustaw tak zeby m,ice 50khz - 200khz.
@@ -10,7 +10,9 @@ void VoltageMeasure_Init()
 {
 	ADCSRA = (1<<ADEN)|			// ADC Enable
 	(1<<ADPS2)|(1<<ADPS1)|		// Prescaler Select Bits
-	(1<<ADIE);					// Interrupt Enable
+	//	(1<<ADIE);					// Interrupt Enable
+	(0<<ADIF)|
+		(0<<ADIE);					// Interrupt Disable
 	
 
 	ADMUX = (1 << REFS0)		// AVCC with external capacitor(1) at AREF pin
@@ -22,7 +24,6 @@ void VoltageMeasure_Init()
 	//25 cykli adc * cpu_freq / proscaler ~= 0,4 ms	
 }
 
-
 void VoltageMeasure_Start()
 {	
 	ADCSRA |= (1<<ADSC);
@@ -30,13 +31,10 @@ void VoltageMeasure_Start()
 
 uint8_t VoltageMeasure_Get()
 {
+			
+	float result = (1.1 * 1024)/((ADCH<<8) + ADCL);
 	
-	uint8_t low = ADCL;
-	uint8_t high = ADCH;
-		
-	float result = (1.3 *1024)/((high* 0x100) + low);
-	
-	uint8_t res = (int)(result *10);
+	uint8_t res = (result-MIN_BATTERY_VOLTAGE)/(MAX_BATTERY_VOLTAGE-MIN_BATTERY_VOLTAGE) * 100;
 	return res;	
 }
 

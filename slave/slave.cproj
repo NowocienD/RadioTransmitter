@@ -123,6 +123,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="mirf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mirf.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="nRF24L01.h">
       <SubType>compile</SubType>
     </Compile>
