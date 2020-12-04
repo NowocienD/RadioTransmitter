@@ -9,11 +9,16 @@
 #include "Pin config.h"
 #include "Voltage.h"
 #include "UART.h"
+#include "RadioControl.h"
+
+uint8_t bufferA[16] = {0x44, 0x55, 0x50, 0x41,0xA5,0xA6,0xA7,0xA8,0xA9,0xB0,0xB1,0xB2,0xB3,0xB4,0xB5,0xB6};
+
+
 
 
 int main(void)
 {
-	
+		
 	//ustawenie wszystkich pinow jako wejscia
 	DDRB = 0x00;
 	DDRC = 0x00;
@@ -24,17 +29,33 @@ int main(void)
 	PORTD = 0xFF;
 	
 	Switch1_disble_PullUP;
-	Switch2_disble_PullUP;	
+	Switch2_disble_PullUP;
+	
+	DDRB |= led_PIN;
+	led_change;
+	_delay_ms(200);
+	led_change;
+	_delay_ms(200);
+
 
 	VoltageMeasure_Init();
 	USART_Init(MYUBRR);
+	USART_Transmit(0x01);
+	
+	RadioInit();
+	_delay_ms(200);
+	sei();
+	RadioConfig();
+	_delay_ms(200);	
+	
+	sei();
 
 	while (1)
 	{
+		RadioSendPayload(bufferA);
 		VoltageMeasure_Start();
 		_delay_ms(500);
 		USART_Transmit(VoltageMeasure_Get());
-		_delay_ms(500) ;
 	}
 }
 

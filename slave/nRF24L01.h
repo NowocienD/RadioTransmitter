@@ -69,6 +69,7 @@
 #define RX_ADDR_P3  0x0D
 #define RX_ADDR_P4  0x0E
 #define RX_ADDR_P5  0x0F
+#define RX_ADDR_P_COM 0x08
 
 // Transmit address
 #define TX_ADDR     0x10
