@@ -11,9 +11,8 @@ void USART_Init(uint16_t baud)
 	/* Enable receiver and transmitter */
 	UCSR0B  = (1<<TXEN0);
 	
-	/* Set frame format: 8data, 1stop bit */
-	UCSR0C  = (1 << UCSZ01)|(1 << UCSZ00);
-	
+	/* Set frame format: 8data, 1stop bit, none parity */
+	UCSR0C  = (1 << UCSZ01)|(1 << UCSZ00);	
 }
 
 void USART_Transmit( uint8_t data )

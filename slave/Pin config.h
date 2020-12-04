@@ -1,9 +1,3 @@
-/*
- * Pin_config.h
- *  Author: Dominik
- */ 
-
-
 #ifndef PIN CONFIG_H_
 #define PIN CONFIG_H_
 
@@ -29,6 +23,4 @@
 
 #define BUTTON_HIGH (PIND & BUTTON_PIN)
 
-
-
-#endif /* PIN CONFIG_H_ */
+#endif 

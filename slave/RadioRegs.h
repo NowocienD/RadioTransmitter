@@ -1,12 +1,11 @@
-
 #ifndef _RADIOREGS_H_
 #define _RADIOREGS_H_
 
 #include <avr/io.h>
-#include "RadioConfiguration.h"
-#include "spi.h"
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include "RadioConfiguration.h"
+#include "spi.h"
 #include "nRF24L01.h"
 
 extern void SingleRegisterConfig(uint8_t reg, uint8_t value);

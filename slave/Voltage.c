@@ -1,9 +1,7 @@
 #include "Voltage.h"
-#include "UART.h"
 #include "Config.h"
 
-
-// presklaer ustaw tak zeby m,ice 50khz - 200khz.
+// presklaer ustaw tak zeby miec 50khz - 200khz.
 // przy 1mHz wewnetrznym oscylatorze to 8 lub 16
 
 void VoltageMeasure_Init()
@@ -28,16 +26,17 @@ void VoltageMeasure_Start()
 }
 
 uint8_t VoltageMeasure_Get()
-{
-			
+{			
+	// calculate voltage 
 	float result = (1.1 * 1024)/((ADCH<<8) + ADCL);
 	
+	// recaltulate result to batery percentage
 	uint8_t res = (result-MIN_BATTERY_VOLTAGE)/(MAX_BATTERY_VOLTAGE-MIN_BATTERY_VOLTAGE) * 100;
 	return res;	
 }
 
 void VoltageMeasure_Stop()
 {
-	ADCSRA = (0<<ADEN); // ADC Enable
+	ADCSRA = (0<<ADEN); // ADC Enable bit to 0 = disable
 }
 

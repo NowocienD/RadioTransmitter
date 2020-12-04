@@ -8,4 +8,4 @@ extern void VoltageMeasure_Start();
 extern void VoltageMeasure_Init();
 extern void VoltageMeasure_Stop();
 
-#endif /* VOLTAGE_H_ */
+#endif

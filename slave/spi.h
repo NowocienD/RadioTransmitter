@@ -6,9 +6,9 @@
 #define PORT_SPI    PORTB
 #define DDR_SPI     DDRB
 
-#define DD_MISO     DDB4
-#define DD_MOSI     DDB3
-#define DD_SCK      DDB5
+#define MISO_PIN     DDB4
+#define MOSI_PIN     DDB3
+#define SCK_PIN      DDB5
 
 extern void SpiInit();
 extern void SpiRead (uint8_t*, uint8_t);

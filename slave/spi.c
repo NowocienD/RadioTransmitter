@@ -3,9 +3,9 @@
 void SpiInit()
 {
 	// Set as input
-	DDR_SPI &= ~(1<<DD_MISO);
+	DDR_SPI &= ~(1<<MISO_PIN);
 	// Set as outputs
-	DDR_SPI |= ((1<<DD_MOSI)|(1<<DD_SCK));
+	DDR_SPI |= ((1<<MOSI_PIN)|(1<<SCK_PIN));
 	
 	SPCR = ((0<<SPIE)|      // SPI Interupt Enable
 	(1<<SPE)|				// SPI Enable	

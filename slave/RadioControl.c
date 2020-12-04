@@ -1,7 +1,5 @@
 #include "RadioControl.h"
 #include "Pin config.h"
-#include "UART.h"
-
 
 uint8_t rxaddres0[5] = {0xff,0xff,0x00,0xff,0xff};
 uint8_t txaddres[5] = {0xff,0xff,0x00,0xff,0xff};
@@ -26,7 +24,6 @@ void RadioSetRxAddress(uint8_t pipeNum, uint8_t * address)
 	// registers of addressees starts from 0x0A,
 	// adding '2' to 0x08 gives proper reg address
 	uint8_t pipeRegAdress = RX_ADDR_P_COM + pipeNum + 2;
-	USART_Transmit((pipeRegAdress));
 	RegisterWrite(pipeRegAdress, address, addressLength);
 }
 
@@ -48,7 +45,6 @@ void RadioInit()
 
 	SpiInit();
 }
-
 
 void RadioConfig()
 {
@@ -88,7 +84,6 @@ void RadioSendPayload(uint8_t * value)
 ISR(PCINT0_vect)
 {
 	CE_LOW;
-	led_on;
 	RadioSleep();
 	SingleRegisterConfig(STATUS,(1<<TX_DS)|(1<<MAX_RT)|(1<<RX_DR)); // clear flags
 }
