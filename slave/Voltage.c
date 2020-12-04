@@ -1,5 +1,4 @@
 #include "Voltage.h"
-#include "config.h"
 
 // works only on port C !!!
 
