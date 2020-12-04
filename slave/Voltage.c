@@ -10,7 +10,7 @@ void VoltageMeasure_Init()
 {
 	ADCSRA = (1<<ADEN)|			// ADC Enable
 	(1<<ADPS2)|(1<<ADPS1)|		// Prescaler Select Bits
-	(1<<ADIE);					// Interrupt Enable
+	(0<<ADIE);					// Interrupt Enable
 	
 
 	ADMUX = (1 << REFS0)		// AVCC with external capacitor(1) at AREF pin
