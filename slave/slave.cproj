@@ -123,7 +123,28 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="RadioConfiguration.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="RadioControl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="RadioControl.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="RadioRegs.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="RadioRegs.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="nRF24L01.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="spi.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UART.c">
