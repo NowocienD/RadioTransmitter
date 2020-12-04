@@ -126,12 +126,6 @@
     <Compile Include="nRF24L01.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="spi.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="spi.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="UART.c">
       <SubType>compile</SubType>
     </Compile>
