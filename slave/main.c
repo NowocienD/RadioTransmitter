@@ -7,6 +7,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "Pin config.h"
+#include "UART.h"
 
 
 int main(void)
@@ -24,9 +25,15 @@ int main(void)
 	Switch1_disble_PullUP;
 	Switch2_disble_PullUP;	
 
+	USART_Init(MYUBRR);
+	USART_Transmit('D');
+
+	int i = 0 ;
 	while (1)
 	{
-		
+		_delay_ms(1000);
+		i++;
+		USART_Transmit(i);
 	}
 }
 
