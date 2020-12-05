@@ -5,6 +5,7 @@
 #include "Voltage.h"
 #include "UART.h"
 #include "RadioControl.h"
+#include <avr/sleep.h>
 
 uint8_t bufferA[16] = {0x44, 0x55, 0x50, 0x41,0xA5,0xA6,0xA7,0xA8,0xA9,0xB0,0xB1,0xB2,0xB3,0xB4,0xB5,0xB6};
 
@@ -23,10 +24,13 @@ int main(void)
 	Switch2_disble_PullUP;
 	
 	DDRB |= led_PIN;
-	led_change;
-	_delay_ms(200);
-	led_change;
-	_delay_ms(200);
+	led_on;
+	_delay_ms(1);
+	led_off;
+	_delay_ms(100);
+	led_on;
+	_delay_ms(1);
+	led_off;
 
 	VoltageMeasure_Init();
 	USART_Init(MYUBRR);
@@ -41,10 +45,10 @@ int main(void)
 
 		VoltageMeasure_Start();
 		led_on;
-		_delay_ms(20);
+		_delay_ms(2);
 		led_off;
-		_delay_ms(2000);
-		USART_Transmit(VoltageMeasure_Get());
+		_delay_ms(1000);
 	}
 }
+
 
