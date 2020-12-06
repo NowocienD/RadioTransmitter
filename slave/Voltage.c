@@ -4,7 +4,7 @@
 // presklaer ustaw tak zeby miec 50khz - 200khz.
 // przy 1mHz wewnetrznym oscylatorze to 8 lub 16
 
-void VoltageMeasure_Init()
+void VoltageMeasure_Start()
 {
 	
 	ADMUX = (1 << REFS0)	// AVCC with external capacitor(1) at AREF pin
@@ -13,17 +13,11 @@ void VoltageMeasure_Init()
 	| (1 << MUX1)
 	| (0 << MUX0);			// 1.1V (VBG)
 	
-	ADCSRA = (1<<ADEN)|		// ADC Enable
+	ADCSRA = 
+	(1<<ADEN)|				// ADC Enable
 	(1<<ADPS2)|(1<<ADPS1)|	// Prescaler Select Bits
-	(1<<ADIE);				// Interrupt Enable
-	
-
-	//25 cykli adc * cpu_freq / proscaler ~= 0,4 ms
-}
-
-void VoltageMeasure_Start()
-{	
-	ADCSRA |= (1<<ADSC);
+	(1<<ADIE)|				// Interrupt Enable
+	(1<<ADSC);				// Start conversion
 }
 
 uint8_t VoltageMeasure_Get()
@@ -39,10 +33,12 @@ uint8_t VoltageMeasure_Get()
 void VoltageMeasure_Stop()
 {
 	ADCSRA = (0<<ADEN); // ADC Enable bit to 0 = disable
+	DIDR0 = 0x3F; // DIDR0 – Digital Input Disable Register 0 //this bit should be written logic one to reduce power consumption in the digital input buffer
 }
 
 
 ISR(ADC_vect)
 {
 	USART_Transmit(VoltageMeasure_Get());
+	VoltageMeasure_Stop();
 }

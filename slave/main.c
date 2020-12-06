@@ -32,7 +32,6 @@ int main(void)
 	_delay_ms(1);
 	led_off;
 
-	VoltageMeasure_Init();
 	USART_Init(MYUBRR);
 	
 	RadioInit();
