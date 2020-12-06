@@ -9,7 +9,6 @@
 #include "RadioRegs.h"
 
 extern void RadioInit();
-extern void RadioConfig();
 extern void RadioSendPayload(uint8_t*);
 
 extern void RadioSetRxAddress(uint8_t pipeNum, uint8_t * address);
