@@ -35,7 +35,6 @@ int main(void)
 	USART_Init(MYUBRR);
 	
 	RadioInit();
-	RadioConfig();	
 	VoltageMeasure_Init();
 	sei();
 

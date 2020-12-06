@@ -41,13 +41,11 @@ void RadioInit()
 	//interrupt on PB0
 	PCICR |= (1<<PCIE0);
 	PCIFR |= (1<<PCIF0);
-	PCMSK0 |= (1<<PCINT0);
-
+	PCMSK0 |= (1<<PCINT0);	
+	
+	// Initialize SPI communication
 	SpiInit();
-}
-
-void RadioConfig()
-{
+	
 	SingleRegisterConfig(RF_CH,CH);
 	SingleRegisterConfig(RX_PW_P0, PAYLOAD);
 	SingleRegisterConfig(EN_AA, EN_AA_ENABLED);
