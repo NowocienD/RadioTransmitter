@@ -36,6 +36,7 @@ int main(void)
 	
 	RadioInit();
 	RadioConfig();	
+	VoltageMeasure_Init();
 	sei();
 
 	while (1)
