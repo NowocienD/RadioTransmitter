@@ -8,12 +8,21 @@
 #include <avr/sleep.h>
 #include <avr/wdt.h>
 #include "WatchDogTimer.h"
+#include "LowPowerConfig.h"
 
 uint8_t bufferA[16] = {0x44, 0x55, 0x50, 0x41,0xA5,0xA6,0xA7,0xA8,0xA9,0xB0,0xB1,0xB2,0xB3,0xB4,0xB5,0xB6};
+
+#define DoSleep do {	SMCR = (1<<SM1) | (1<<SE);	sleep_cpu();	SMCR = 0x00;	} while (0);
+
+volatile uint8_t sleepPeriodCounter;
+volatile uint8_t sleepTime;
+
 
 int main(void)
 {
 	MCUSR = 0x00; //MCU Status Register // zresetowanie flag resetu.
+	ADC_reducePower;
+	
 	//ustawenie wszystkich pinow jako wejscia
 	DDRB = 0x00;
 	DDRC = 0x00;
@@ -36,16 +45,21 @@ int main(void)
 	led_off;
 	
 	WDT_Init();
-	
-	USART_Init(MYUBRR);
-	
 	RadioInit();
-	RadioConfig();
+	USART_Init(MYUBRR);
 	VoltageMeasure_Init();
+	
+	RadioConfig();
+	sleepPeriodCounter = 0 ;
+	sleepTime = 38 ;
 	
 	sei();
 	while (1)
 	{
+		ADC_off;
+		AC_off;
+		sleep_bod_disable();
+		DoSleep;
 	}
 }
 
@@ -54,9 +68,13 @@ int main(void)
 ISR(WDT_vect)
 {
 	WDTCSR = (1<<WDIE);	// interrupt enable // bardzo niebezpieczna linia. #TODO do konsultacji z promotorem
-
-	led_on;
-	RadioSendPayload(bufferA);
-	VoltageMeasure_Start();
-	led_off;
+	SMCR = 0x00;		// exit sleep
+	
+	sleepPeriodCounter++;
+	if (sleepPeriodCounter > sleepTime)
+	{
+		sleepPeriodCounter = 0 ;
+		VoltageMeasure_Start();
+		RadioSendPayload(bufferA);
+	}
 }

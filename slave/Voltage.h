@@ -3,6 +3,11 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/sleep.h>
+#include "Config.h"
+#include "UART.h"
+
+volatile uint8_t voltage;
 
 extern uint8_t VoltageMeasure_Get();
 extern void VoltageMeasure_Init();
