@@ -1,12 +1,12 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <avr/sleep.h>
+#include <avr/wdt.h>
 #include "Pin config.h"
 #include "Voltage.h"
 #include "UART.h"
 #include "RadioControl.h"
-#include <avr/sleep.h>
-#include <avr/wdt.h>
 #include "WatchDogTimer.h"
 #include "LowPowerConfig.h"
 
@@ -63,8 +63,6 @@ int main(void)
 	}
 }
 
-
-
 ISR(WDT_vect)
 {
 	WDTCSR = (1<<WDIE);	// interrupt enable // bardzo niebezpieczna linia. #TODO do konsultacji z promotorem
@@ -75,6 +73,7 @@ ISR(WDT_vect)
 	{
 		sleepPeriodCounter = 0 ;
 		VoltageMeasure_Start();
+		bufferA [0] = voltage;
 		RadioSendPayload(bufferA);
 	}
 }
