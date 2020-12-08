@@ -68,12 +68,12 @@ ISR(WDT_vect)
 	WDTCSR = (1<<WDIE);	// interrupt enable // bardzo niebezpieczna linia. #TODO do konsultacji z promotorem
 	SMCR = 0x00;		// exit sleep
 	
-	sleepPeriodCounter++;
-	if (sleepPeriodCounter > sleepTime)
+	if (sleepPeriodCounter >= sleepTime)
 	{
 		sleepPeriodCounter = 0 ;
 		VoltageMeasure_Start();
 		bufferA [0] = voltage;
 		RadioSendPayload(bufferA);
 	}
+	sleepPeriodCounter++;
 }
