@@ -1,5 +1,5 @@
-#ifndef PIN CONFIG_H_
-#define PIN CONFIG_H_
+#ifndef PIN_CONFIG_H_
+#define PIN_CONFIG_H_
 
 #define led_PIN (1<<PB7)
 #define led_PORT PORTB
