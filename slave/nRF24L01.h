@@ -1,5 +1,5 @@
 // config
-#define CONFIG      0x00
+#define CONFIG_REG      0x00
 #define MASK_RX_DR  6
 #define MASK_TX_DS  5
 #define MASK_MAX_RT 4
@@ -69,7 +69,6 @@
 #define RX_ADDR_P3  0x0D
 #define RX_ADDR_P4  0x0E
 #define RX_ADDR_P5  0x0F
-#define RX_ADDR_P_COM 0x08
 
 // Transmit address
 #define TX_ADDR     0x10

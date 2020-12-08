@@ -1,11 +1,11 @@
 #ifndef RADIOCONFIGURATION_H_
 #define RADIOCONFIGURATION_H_
 
-#define CH         2
-#define PAYLOAD    16
-#define CONFIG1     ( (1<<MASK_RX_DR) | (1<<EN_CRC) | (0<<CRCO) | (1<<MASK_RX_DR))
+#define Radio_CHANNEL         2
+#define RADIO_PAYLOAD_LENGTH    16
+#define RADIO_CONFIG     ( (1<<MASK_RX_DR) | (1<<EN_CRC) | (0<<CRCO) | (1<<MASK_RX_DR))
 
-#define addressLength 5
+#define RADIO_ADDRESS_LENGTH 5
 
 #define CE  PB1
 #define CSN PB2

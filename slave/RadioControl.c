@@ -6,30 +6,28 @@ uint8_t txaddres[5] = {0xff,0xff,0x00,0xff,0xff};
 
 void RadioSleep()
 {
-	SingleRegisterConfig(CONFIG, CONFIG1 | (0<<PWR_UP));
+	SingleRegisterConfig(CONFIG_REG, RADIO_CONFIG | (0<<PWR_UP));
 }
 
 void RadioRecieveMode()
 {
-	SingleRegisterConfig(CONFIG, CONFIG1 | (1<<PWR_UP) | (1<<PRIM_RX));
+	SingleRegisterConfig(CONFIG_REG, RADIO_CONFIG | (1<<PWR_UP) | (1<<PRIM_RX));
 }
 
 void RadioTransmitMode()
 {
-	SingleRegisterConfig(CONFIG, CONFIG1 |  (1<<PWR_UP) | (0<<PRIM_RX));
+	SingleRegisterConfig(CONFIG_REG, RADIO_CONFIG |  (1<<PWR_UP) | (0<<PRIM_RX));
 }
 
 void RadioSetRxAddress(uint8_t pipeNum, uint8_t * address)
 {
-	// registers of addressees starts from 0x0A,
-	// adding '2' to 0x08 gives proper reg address
-	uint8_t pipeRegAdress = RX_ADDR_P_COM + pipeNum + 2;
-	RegisterWrite(pipeRegAdress, address, addressLength);
+	uint8_t pipeRegAdress = RX_ADDR_P0 + pipeNum;
+	RegisterWrite(pipeRegAdress, address, RADIO_ADDRESS_LENGTH);
 }
 
 void RadioSetTxAddress(uint8_t * address)
 {
-	RegisterWrite(TX_ADDR, address, addressLength);
+	RegisterWrite(TX_ADDR, address, RADIO_ADDRESS_LENGTH);
 }
 
 void RadioInit()
@@ -48,8 +46,8 @@ void RadioInit()
 
 void RadioConfig()
 {
-	SingleRegisterConfig(RF_CH,CH);
-	SingleRegisterConfig(RX_PW_P0, PAYLOAD);
+	SingleRegisterConfig(RF_CH,Radio_CHANNEL);
+	SingleRegisterConfig(RX_PW_P0, RADIO_PAYLOAD_LENGTH);
 	SingleRegisterConfig(EN_AA, EN_AA_ENABLED);
 	SingleRegisterConfig(RF_SETUP, 0x26);
 	
@@ -74,7 +72,7 @@ void RadioSendPayload(uint8_t * value)
 	
 	CSN_LOW;                    
 	SpiTransfer( W_TX_PAYLOAD );
-	SpiWrite(value, PAYLOAD);   
+	SpiWrite(value, RADIO_PAYLOAD_LENGTH);   
 	CSN_HIGH;                
 	
 	CE_HIGH;    
