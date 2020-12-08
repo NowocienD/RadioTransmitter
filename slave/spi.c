@@ -19,6 +19,16 @@ void SpiInit()
 							//final clock speed is f.osc/2
 }
 
+void SpiEnable()
+{
+	SPCR |= (1<<SPE);
+}
+
+void SpiDisable()
+{
+	SPCR &= ~(1<<SPE);	
+}
+
 void SpiRead (uint8_t* data, uint8_t length)
 {
 	uint8_t i;

@@ -14,5 +14,7 @@ extern void SpiInit();
 extern void SpiRead (uint8_t*, uint8_t);
 extern void SpiWrite (uint8_t*, uint8_t);
 extern uint8_t SpiTransfer (uint8_t);
+extern void SpiDisable();
+extern void SpiEnable();
 
 #endif
