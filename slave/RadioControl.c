@@ -1,4 +1,5 @@
 #include "RadioControl.h"
+#include "Config.h"
 #include "Pin config.h"
 
 uint8_t rxaddres0[5] = {0xff,0xff,0x00,0xff,0xff};
@@ -49,7 +50,7 @@ void RadioConfig()
 	SingleRegisterConfig(RF_CH,Radio_CHANNEL);
 	SingleRegisterConfig(RX_PW_P0, RADIO_PAYLOAD_LENGTH);
 	SingleRegisterConfig(EN_AA, EN_AA_ENABLED);
-	SingleRegisterConfig(RF_SETUP, 0x26);
+	SingleRegisterConfig(RF_SETUP, (RADIO_POWER | RADIO_DATARATE));
 	
 	RadioSetRxAddress(0, rxaddres0);
 	//RadioSetRxAddress(1, rxaddres1);
@@ -64,19 +65,19 @@ void RadioConfig()
 
 void RadioSendPayload(uint8_t * value)
 {
-	RadioTransmitMode(); 
+	RadioTransmitMode();
 	
-	CSN_LOW;                   
+	CSN_LOW;
 	SpiTransfer( FLUSH_TX );
-	CSN_HIGH;                 
+	CSN_HIGH;
 	
-	CSN_LOW;                    
+	CSN_LOW;
 	SpiTransfer( W_TX_PAYLOAD );
-	SpiWrite(value, RADIO_PAYLOAD_LENGTH);   
-	CSN_HIGH;                
+	SpiWrite(value, RADIO_PAYLOAD_LENGTH);
+	CSN_HIGH;
 	
-	CE_HIGH;    
-	_delay_us(10);      	
+	CE_HIGH;
+	_delay_us(10);
 }
 
 ISR(PCINT0_vect)
