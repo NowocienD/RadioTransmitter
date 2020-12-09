@@ -44,11 +44,11 @@ int main(void)
 	
 	DDRB |= led_PIN;
 	led_on;
-	_delay_ms(1);
+	_delay_ms(50);
 	led_off;
-	_delay_ms(100);
+	_delay_ms(500);
 	led_on;
-	_delay_ms(1);
+	_delay_ms(50);
 	led_off;
 	
 	WDT_Init();
@@ -65,7 +65,7 @@ int main(void)
 	{
 		ADC_off;
 		AC_off; 
-		DoSleep;
+		DoSleep;		
 	}
 }
 
