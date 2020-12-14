@@ -4,8 +4,8 @@
 #include <avr/io.h>
 #include "RadioConfig.h"
 
-uint8_t _payload[RADIO_PAYLOAD_LENGTH];
-uint8_t _maskByte;
+volatile uint8_t _payload[RADIO_PAYLOAD_LENGTH];
+volatile uint8_t _maskByte;
 
 void PayloadReset();
 void PayloadSetMaskByte(uint8_t maskByte);
