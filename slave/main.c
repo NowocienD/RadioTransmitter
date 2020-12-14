@@ -11,8 +11,6 @@
 #include "WatchDogTimer.h"
 #include "LowPowerConfig.h"
 
-uint8_t bufferA[16] = {0x44, 0x55, 0x50, 0x41,0xA5,0xA6,0xA7,0xA8,0xA9,0xB0,0xB1,0xB2,0xB3,0xB4,0xB5,0xB6};
-
 #define DoSleep2		do { cli();	/*SMCR = (1<<SM1) | (1<<SE);*/ sleep_enable();	sleep_bod_disable();sei(); sleep_cpu();	/*SMCR = 0x00;*/ sleep_disable();	} while (0);
 #define DoSleep	do { cli();	SMCR = (1<<SM1) | (1<<SE);						sleep_bod_disable();sei(); sleep_cpu();	  SMCR = 0x00;						} while (0);
 
@@ -82,8 +80,14 @@ int main(void)
 			#ifdef DEBUG
 			led_on;
 			#endif
-			
-			RadioSendPayload(bufferA);
+			PayloadReset();
+			PayloadSetMaskByte(0x54);
+			if (BUTTON_HIGH)
+			PayloadSetByte(0, 1);
+			else
+			PayloadSetByte(0, 0);			
+			PayloadMask();
+			RadioSendPayload(PayloadGet());
 			
 			#ifdef DEBUG
 			led_off;
