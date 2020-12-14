@@ -61,10 +61,10 @@ int main(void)
 	RadioConfig();
 	sleepPeriodCounter = 0 ;
 	
-	#ifdef _DEBUG
-	sleepTime = 38/5 ;
-	#else
 	sleepTime = 38 ;
+	
+	#ifdef DEBUG
+	sleepTime /= 5 ;
 	#endif
 	
 	sei();
