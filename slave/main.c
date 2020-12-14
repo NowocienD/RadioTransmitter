@@ -21,7 +21,7 @@ volatile uint8_t doFlag;
 int main(void)
 {
 	MCUSR = 0x00; //MCU Status Register // zresetowanie flag resetu.
-	CLKPR = (1<<CLKPS2);
+	CLKPR =  (1<<CLKPCE) | (1<<CLKPS2); //prescaler 8
 	
 	ADC_reducePower;
 	AC_reducePower;
