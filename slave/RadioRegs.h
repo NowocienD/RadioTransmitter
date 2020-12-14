@@ -2,8 +2,6 @@
 #define _RADIOREGS_H_
 
 #include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
 #include "RadioConfig.h"
 #include "spi.h"
 #include "nRF24L01.h"
