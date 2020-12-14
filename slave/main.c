@@ -11,6 +11,7 @@
 #include "WatchDogTimer.h"
 #include "LowPowerConfig.h"
 #include "Payload.h"
+#include <stdlib.h>
 
 #define DoSleep	do { cli();	SMCR = (1<<SM1) | (1<<SE);						sleep_bod_disable();sei(); sleep_cpu();	  SMCR = 0x00;						} while (0);
 
@@ -81,7 +82,8 @@ int main(void)
 			led_on;
 			#endif
 			PayloadReset();
-			PayloadSetMaskByte(0x54);
+			PayloadSetMaskByte(rand());
+			
 			if (BUTTON_HIGH)
 			PayloadSetByte(0, 1);
 			else

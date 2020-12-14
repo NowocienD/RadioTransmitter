@@ -8,10 +8,7 @@
 #include "UART.h"
 
 volatile uint8_t voltage;
-uint8_t seed;
 
-extern uint8_t VoltageGetSeed();
-extern void VoltageGiveRandomSeed();
 extern uint8_t VoltageMeasure_Get();
 extern void VoltageMeasure_Init();
 extern void VoltageMeasure_Start();

@@ -17,17 +17,6 @@ void VoltageMeasure_Init()
 	(1<<ADIE);				// Interrupt Enable
 }
 
-void VoltageGivesRandomSeed(uint8_t randNumFromADC)
-{
-	seed <<= 1; ;
-	seed |= (randNumFromADC & 0x01);	
-}
-
-uint8_t VoltageGetSeed()
-{
-	return seed;
-}
-
 void VoltageMeasure_Start()
 {
 	ADCSRA |=
@@ -42,11 +31,10 @@ uint8_t VoltageMeasure_Get()
 {
 	// make sure ADCL is readed first
 	uint8_t ADC_LOW = ADCL;
+	
 	// calculate voltage
 	float result = (1.1 * 1024)/((ADCH<<8) + ADC_LOW);
-	
-	VoltageGivesRandomSeed(ADC_LOW);
-	
+		
 	// recaltulate result to batery percentage
 	uint8_t res = (result-MIN_BATTERY_VOLTAGE)/(MAX_BATTERY_VOLTAGE-MIN_BATTERY_VOLTAGE) * 100;
 	return res;
