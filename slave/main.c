@@ -10,6 +10,7 @@
 #include "RadioControl.h"
 #include "WatchDogTimer.h"
 #include "LowPowerConfig.h"
+#include "Payload.h"
 
 #define DoSleep2		do { cli();	/*SMCR = (1<<SM1) | (1<<SE);*/ sleep_enable();	sleep_bod_disable();sei(); sleep_cpu();	/*SMCR = 0x00;*/ sleep_disable();	} while (0);
 #define DoSleep	do { cli();	SMCR = (1<<SM1) | (1<<SE);						sleep_bod_disable();sei(); sleep_cpu();	  SMCR = 0x00;						} while (0);
