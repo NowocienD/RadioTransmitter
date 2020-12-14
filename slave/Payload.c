@@ -19,7 +19,7 @@ void PayloadSetByte(uint8_t byte, uint8_t data)
 	_payload[byte] = data;
 }
 
-uint8_t PayloadGet()
+uint8_t* PayloadGet()
 {
 	return _payload;
 }
