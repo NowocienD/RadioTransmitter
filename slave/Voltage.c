@@ -46,7 +46,7 @@ void VoltageMeasure_Stop()
 ISR(ADC_vect)
 {
 	sleep_disable();
-	voltage = VoltageMeasure_Get();
-	USART_Transmit(voltage);
+	//voltage = VoltageMeasure_Get();
+	//USART_Transmit(voltage);
 	VoltageMeasure_Stop();
 }
