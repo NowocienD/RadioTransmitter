@@ -3,6 +3,7 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <avr/wdt.h>
+#include "Config.h"
 #include "Pin config.h"
 #include "Voltage.h"
 #include "UART.h"
@@ -17,11 +18,12 @@ uint8_t bufferA[16] = {0x44, 0x55, 0x50, 0x41,0xA5,0xA6,0xA7,0xA8,0xA9,0xB0,0xB1
 
 volatile uint8_t sleepPeriodCounter;
 volatile uint8_t sleepTime;
-
+volatile uint8_t doFlag;
 
 int main(void)
 {
 	MCUSR = 0x00; //MCU Status Register // zresetowanie flag resetu.
+	CLKPR = (1<<CLKPS2);
 	
 	ADC_reducePower;
 	AC_reducePower;
@@ -53,19 +55,40 @@ int main(void)
 	
 	WDT_Init();
 	RadioInit();
-	USART_Init(MYUBRR);
+	//USART_Init(MYUBRR);
 	VoltageMeasure_Init();
 	
 	RadioConfig();
 	sleepPeriodCounter = 0 ;
+	
+	#ifdef _DEBUG
+	sleepTime = 38/5 ;
+	#else
 	sleepTime = 38 ;
+	#endif
 	
 	sei();
+	doFlag = 0;
+	
 	while (1)
 	{
 		ADC_off;
-		AC_off; 
-		DoSleep;		
+		AC_off;
+		DoSleep;
+		if (doFlag == 1)
+		{
+			doFlag = 0 ;
+			//VoltageMeasure_Start();
+			#ifdef DEBUG
+			led_on;
+			#endif
+			
+			RadioSendPayload(bufferA);
+			
+			#ifdef DEBUG
+			led_off;
+			#endif
+		}
 	}
 }
 
@@ -77,9 +100,7 @@ ISR(WDT_vect)
 	if (sleepPeriodCounter >= sleepTime)
 	{
 		sleepPeriodCounter = 0 ;
-		VoltageMeasure_Start();
-		bufferA [0] = voltage;
-		RadioSendPayload(bufferA);
+		doFlag = 1;
 	}
 	sleepPeriodCounter++;
 }
