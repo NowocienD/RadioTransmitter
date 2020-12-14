@@ -77,7 +77,7 @@ int main(void)
 		if (doFlag == 1)
 		{
 			doFlag = 0 ;
-			//VoltageMeasure_Start();
+			VoltageMeasure_Start();
 			#ifdef DEBUG
 			led_on;
 			#endif
@@ -88,6 +88,7 @@ int main(void)
 			PayloadSetByte(0, 1);
 			else
 			PayloadSetByte(0, 0);			
+			PayloadSetByte(1, VoltageMeasure_Get());
 			PayloadMask();
 			RadioSendPayload(PayloadGet());
 			
