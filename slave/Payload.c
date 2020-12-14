@@ -4,7 +4,7 @@
 void PayloadReset()
 {
 	uint8_t i;
-	for (i = 0; i < RADIO_PAYLOAD_LENGTH-1; i++)
+	for (i = 0; i < RADIO_PAYLOAD_LENGTH; i++)
 	{
 		_payload[i] = 0x00;
 	}
@@ -27,10 +27,8 @@ uint8_t* PayloadGet()
 void PayloadMask()
 {
 	uint8_t i;
-	for (i = 0; i < RADIO_PAYLOAD_LENGTH-1; i++)
+	for (i = 0; i < RADIO_PAYLOAD_LENGTH; i++)
 	{
 		_payload[i] ^= _maskByte;
-	}
-	_payload[RADIO_PAYLOAD_LENGTH] = _maskByte;
-	
+	}	
 }
