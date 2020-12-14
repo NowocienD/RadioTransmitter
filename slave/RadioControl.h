@@ -4,7 +4,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "RadioConfiguration.h"
+#include "RadioConfig.h"
 #include "nRF24L01.h"
 #include "RadioRegs.h"
 

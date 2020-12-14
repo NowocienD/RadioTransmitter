@@ -2,7 +2,7 @@
 #define PAYLOAD_H_
 
 #include <avr/io.h>
-#include "RadioConfiguration.h"
+#include "RadioConfig.h"
 
 uint8_t _payload[RADIO_PAYLOAD_LENGTH];
 uint8_t _maskByte;

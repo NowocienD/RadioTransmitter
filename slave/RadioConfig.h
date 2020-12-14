@@ -1,6 +1,6 @@
 
-#ifndef RADIOCONFIGURATION_H_
-#define RADIOCONFIGURATION_H_
+#ifndef RADIOCONFIG_H_
+#define RADIOCONFIG_H_
 
 #include "nRF24L01.h"
 

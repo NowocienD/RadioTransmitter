@@ -138,7 +138,7 @@
     <Compile Include="Pin config.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="RadioConfiguration.h">
+    <Compile Include="RadioConfig.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="RadioControl.c">
