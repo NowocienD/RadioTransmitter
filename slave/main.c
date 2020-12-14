@@ -81,15 +81,17 @@ int main(void)
 			#ifdef DEBUG
 			led_on;
 			#endif
-			PayloadReset();
-			PayloadSetMaskByte(rand());
 			
-			if (BUTTON_HIGH)
-			PayloadSetByte(0, 1);
-			else
-			PayloadSetByte(0, 0);			
-			PayloadSetByte(1, VoltageMeasure_Get());
+			PayloadReset();
+
+			PayloadSetID(25);
+			PayloadSetData1(BUTTON_HIGH>>3);
+			PayloadSetData2(38);			
+			PayloadSetBatteryVoltage(VoltageMeasure_Get());
+			
+			PayloadSetMaskByte(rand());
 			PayloadMask();
+			
 			RadioSendPayload(PayloadGet());
 			
 			#ifdef DEBUG
