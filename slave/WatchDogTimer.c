@@ -4,7 +4,7 @@ void WDT_Init()
 {
 	WDTCSR = (1<<WDCE) | (1<<WDE); // WTD ENABLE and allow changes in WDTCSR
 	
-	#ifndef DEBUG
+	#ifndef DEBUG_ON
 	WDTCSR =
 	(1<<WDIE)|	// interrupt enable
 	(1<<WDE)|	// enable WDT

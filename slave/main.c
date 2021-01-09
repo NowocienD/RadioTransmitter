@@ -12,6 +12,8 @@
 #include "LowPowerConfig.h"
 #include "Payload.h"
 #include <stdlib.h>
+#include "Sensor.h"
+#include <avr/eeprom.h> 
 
 #define DoSleep	do { cli();	SMCR = (1<<SM1) | (1<<SE);						sleep_bod_disable();sei(); sleep_cpu();	  SMCR = 0x00;						} while (0);
 
@@ -25,7 +27,9 @@ int main(void)
 	CLKPR =  (1<<CLKPCE) | (1<<CLKPS2); //prescaler 8
 	
 	ADC_reducePower;
-	AC_reducePower;
+	AC_reducePower;		
+	ADC_off;
+	AC_off;
 	Timer0_off;
 	Timer1_off;
 	Timer2_off;
@@ -40,21 +44,22 @@ int main(void)
 	PORTC = 0xFF;
 	PORTD = 0xFF;
 	
-	Switch1_disble_PullUP;
-	Switch2_disble_PullUP;
 	
 	DDRB |= led_PIN;
+	
 	led_on;
 	_delay_ms(50);
 	led_off;
+	
+	#ifdef DEBUG_ON
 	_delay_ms(500);
 	led_on;
 	_delay_ms(50);
 	led_off;
+	#endif
 	
-	WDT_Init();
 	RadioInit();
-	//USART_Init(MYUBRR);
+	WDT_Init();
 	VoltageMeasure_Init();
 	
 	RadioConfig();
@@ -62,8 +67,8 @@ int main(void)
 	
 	sleepTime = 38 ;
 	
-	#ifdef DEBUG
-	sleepTime /= 5 ;
+	#ifdef DEBUG_ON
+	//sleepTime /= 5 ;
 	#endif
 	
 	sei();
@@ -78,23 +83,31 @@ int main(void)
 		{
 			doFlag = 0 ;
 			VoltageMeasure_Start();
-			#ifdef DEBUG
+			SensorInit();
+			_delay_ms(10);
+			#ifdef DEBUG_ON
 			led_on;
 			#endif
 			
 			PayloadReset();
 
-			PayloadSetID(25);
-			PayloadSetData1(BUTTON_HIGH>>3);
-			PayloadSetData2(38);			
+			PayloadSetID_1(7);
 			PayloadSetBatteryVoltage(VoltageMeasure_Get());
 			
-			PayloadSetMaskByte(rand());
-			PayloadMask();
+			PayloadSetData1(SensorGet(0));
+			PayloadSetDataID1(8);
 			
+			PayloadSetData2(SensorGet(1));
+			PayloadSetDataID2(0);
+			
+			PayloadSetMaskByte(rand());
+			PayloadMask();			
 			RadioSendPayload(PayloadGet());
 			
-			#ifdef DEBUG
+	
+			SensorStop();
+			
+			#ifdef DEBUG_ON
 			led_off;
 			#endif
 		}

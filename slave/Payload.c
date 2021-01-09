@@ -16,6 +16,16 @@ void PayloadSetData2(uint8_t data)
 	_payload[DATA2] = data;
 }
 
+void PayloadSetDataID1(uint8_t data)
+{
+		_payload[Data1_ID] = data;
+}
+
+void PayloadSetDataID2(uint8_t data)
+{
+	_payload[Data2_ID] = data;
+}
+
 void PayloadSetBatteryVoltage(uint8_t data)
 {
 	_payload[Battery] = data;

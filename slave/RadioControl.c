@@ -3,7 +3,7 @@
 uint8_t rxaddres0[5] = {0xff,0xff,0x00,0xff,0xff};
 uint8_t txaddres[5] = {0xff,0xff,0x00,0xff,0xff};
 
-void RadioSleep()
+inline void RadioSleep()
 {
 	SingleRegisterConfig(CONFIG_REG, RADIO_CONFIG | (0<<PWR_UP));
 }
@@ -78,9 +78,19 @@ void RadioSendPayload(uint8_t * value)
 	_delay_us(10);
 }
 
+inline void RadioClearFlags()
+{	
+	SingleRegisterConfig(STATUS,(1<<TX_DS)|(1<<MAX_RT)|(1<<RX_DR));
+}
+
 ISR(PCINT0_vect)
 {
+	// turn off radio module
 	CE_LOW;
+	
+	// enter deep sleep mode 
 	RadioSleep();
-	SingleRegisterConfig(STATUS,(1<<TX_DS)|(1<<MAX_RT)|(1<<RX_DR)); // clear flags
+	
+	// clear flags
+	RadioClearFlags();
 }

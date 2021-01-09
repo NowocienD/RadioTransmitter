@@ -156,6 +156,12 @@
     <Compile Include="nRF24L01.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Sensor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Sensor.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="spi.c">
       <SubType>compile</SubType>
     </Compile>
