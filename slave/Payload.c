@@ -1,9 +1,14 @@
 #include "Payload.h"
 
 
-void PayloadSetID(uint8_t data)
+void PayloadSetID1(uint8_t data)
 {
-	_payload[UnitID] = data;
+	_payload[UnitID1] = data;
+}
+
+void PayloadSetID2(uint8_t data)
+{
+	_payload[UnitID2] = data;
 }
 
 void PayloadSetData1(uint8_t data)
