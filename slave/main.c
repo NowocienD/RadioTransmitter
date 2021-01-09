@@ -21,6 +21,9 @@ volatile uint8_t sleepPeriodCounter;
 volatile uint8_t sleepTime;
 volatile uint8_t doFlag;
 
+volatile uint8_t unitID_1;
+volatile uint8_t unitID_2;
+
 int main(void)
 {
 	MCUSR = 0x00; //MCU Status Register // zresetowanie flag resetu.
@@ -44,6 +47,8 @@ int main(void)
 	PORTC = 0xFF;
 	PORTD = 0xFF;
 	
+	unitID_1 = __EEGET(UNIT_ID_1);
+	unitID_2 = __EEGET(UNIT_ID_2);
 	
 	DDRB |= led_PIN;
 	

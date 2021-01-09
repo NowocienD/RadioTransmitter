@@ -7,6 +7,8 @@
 
 #define F_CPU 1000000UL
 
+#define UNIT_ID_1 0x01
+#define UNIT_ID_2 0x02
 
 
 #define DEBUG_ON
