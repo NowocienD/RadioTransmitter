@@ -45,10 +45,10 @@ int main(void)
 	//wlaczenie pullup na wszystkich pinach
 	PORTB = 0xFF;
 	PORTC = 0xFF;
-	PORTD = 0xFF;
+	PORTD = 0xFF;	
 	
-	unitID_1 = __EEGET(UNIT_ID_1);
-	unitID_2 = __EEGET(UNIT_ID_2);
+	__EEGET(unitID_1, EEPROM_UNIT_ID_1);
+	__EEGET(unitID_2, EEPROM_UNIT_ID_2);
 	
 	DDRB |= led_PIN;
 	
@@ -73,7 +73,7 @@ int main(void)
 	sleepTime = 38 ;
 	
 	#ifdef DEBUG_ON
-	//sleepTime /= 5 ;
+	sleepTime /= 5 ;
 	#endif
 	
 	sei();
@@ -96,7 +96,8 @@ int main(void)
 			
 			PayloadReset();
 
-			PayloadSetID_1(7);
+			PayloadSetID1(unitID_1);
+			PayloadSetID2(unitID_2);
 			PayloadSetBatteryVoltage(VoltageMeasure_Get());
 			
 			PayloadSetData1(SensorGet(0));
