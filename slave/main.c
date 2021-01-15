@@ -73,7 +73,7 @@ int main(void)
 	sleepTime = 38 ;
 	
 	#ifdef DEBUG_ON
-	sleepTime /= 5 ;
+	sleepTime /= 2 ;
 	#endif
 	
 	sei();
