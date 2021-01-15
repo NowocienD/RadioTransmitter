@@ -101,10 +101,10 @@ int main(void)
 			PayloadSetBatteryVoltage(VoltageMeasure_Get());
 			
 			PayloadSetData1(SensorGet(0));
-			PayloadSetDataID1(8);
+			PayloadSetDataID1(1);
 			
 			PayloadSetData2(SensorGet(1));
-			PayloadSetDataID2(0);
+			PayloadSetDataID2(2);
 			
 			PayloadSetMaskByte(rand());
 			PayloadMask();			
