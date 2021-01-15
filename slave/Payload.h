@@ -13,8 +13,7 @@
 #define Data2_ID	4
 #define Battery		5
 #define MASK		7
-#define radundant3	6
-#define UnitID2		8
+#define UnitID2		6
 
 uint8_t _payload[RADIO_PAYLOAD_LENGTH];
 uint8_t _maskByte;
